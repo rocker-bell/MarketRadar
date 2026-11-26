@@ -5,6 +5,8 @@ import RadarScanner from '../Components/RadarScanner';
 import AnomalyFeed from '../Components/AnomalyFeed';
 import ApiUsageCard from '../Components/ApiUsageCard';
 import TokenModal from '../Components/TokenModal';
+import VersionToggle from '../Components/v2/VersionToggle';
+import SignalDesk from '../Components/v2/SignalDesk';
 import { fetchMarketData } from '../utilities/cmcApi';
 import type { CryptoAsset, MarketMetrics } from '../utilities/anomalyDetector';
 import {
@@ -17,6 +19,7 @@ import {
 import '../Styles/Dashboard.css';
 
 const Dashboard: React.FC = () => {
+  const [version, setVersion] = useState<'v1' | 'v2'>('v1');
   const [assets, setAssets] = useState<CryptoAsset[]>([]);
   const [metrics, setMetrics] = useState<MarketMetrics | null>(null);
   const [isMockData, setIsMockData] = useState<boolean>(false);
@@ -89,74 +92,93 @@ const Dashboard: React.FC = () => {
   }, []);
 
   return (
-    <div className="Dashboard_container">
-      {/* Navigation Header */}
-      <NavBar
-        onRefresh={() => loadData(true)}
-        isRefreshing={isRefreshing}
-        isMockData={isMockData}
+    <>
+      {/* Absolute / Fixed Version Toggle (V1 vs V2) */}
+      <VersionToggle
+        currentVersion={version}
+        onToggle={(v) => setVersion(v)}
       />
 
-      <div className="Dashboard_contentWrapper">
-        {isLoading && !metrics ? (
-          <div className="Dashboard_loadingState">
-            <div className="Dashboard_loadingPulse"></div>
-            <span>Calibrating MarketRadar Telemetry Sensors...</span>
-          </div>
-        ) : (
-          <>
-            {/* Top Market Metric Cards (Includes live signals count and API status) */}
-            {metrics && (
-              <MetricCards
-                metrics={metrics}
-                totalSignalsCount={totalSignalsCount}
-                apiStats={apiStats}
-              />
+      {version === 'v2' ? (
+        /* V2: Signal Desk Experience (Editorial Neo-Brutalist Tech) */
+        <SignalDesk
+          assets={assets}
+          metrics={metrics}
+          signals={signals}
+          totalSignalsCount={totalSignalsCount}
+          apiStats={apiStats}
+          onRefresh={() => loadData(true)}
+          isRefreshing={isRefreshing}
+        />
+      ) : (
+        /* V1: Classic Dark Radar Experience */
+        <div className="Dashboard_container">
+          <NavBar
+            onRefresh={() => loadData(true)}
+            isRefreshing={isRefreshing}
+            isMockData={isMockData}
+          />
+
+          <div className="Dashboard_contentWrapper">
+            {isLoading && !metrics ? (
+              <div className="Dashboard_loadingState">
+                <div className="Dashboard_loadingPulse"></div>
+                <span>Calibrating MarketRadar Telemetry Sensors...</span>
+              </div>
+            ) : (
+              <>
+                {/* Top Market Metric Cards */}
+                {metrics && (
+                  <MetricCards
+                    metrics={metrics}
+                    totalSignalsCount={totalSignalsCount}
+                    apiStats={apiStats}
+                  />
+                )}
+
+                {/* Main Interactive Grid */}
+                <div className="Dashboard_mainGrid">
+                  <div className="Dashboard_scannerSection">
+                    <RadarScanner
+                      assets={assets}
+                      onSelectAsset={(asset) => setSelectedAsset(asset)}
+                    />
+                  </div>
+
+                  <div className="Dashboard_feedSection">
+                    <AnomalyFeed
+                      assets={assets}
+                      signals={signals}
+                      totalSignalsCount={totalSignalsCount}
+                      onSelectAsset={(asset) => setSelectedAsset(asset)}
+                    />
+
+                    <ApiUsageCard
+                      stats={apiStats}
+                      isMockData={isMockData}
+                    />
+                  </div>
+                </div>
+              </>
             )}
 
-            {/* Main Interactive Grid */}
-            <div className="Dashboard_mainGrid">
-              <div className="Dashboard_scannerSection">
-                <RadarScanner
-                  assets={assets}
-                  onSelectAsset={(asset) => setSelectedAsset(asset)}
-                />
-              </div>
-
-              <div className="Dashboard_feedSection">
-                {/* Live "Per Signal" Stream */}
-                <AnomalyFeed
-                  assets={assets}
-                  signals={signals}
-                  totalSignalsCount={totalSignalsCount}
-                  onSelectAsset={(asset) => setSelectedAsset(asset)}
-                />
-
-                {/* API Usage & Telemetry Health Widget */}
-                <ApiUsageCard
-                  stats={apiStats}
-                  isMockData={isMockData}
-                />
-              </div>
+            <div className="Dashboard_footerNote">
+              <span>MarketRadar v1.0 • CoinMarketCap API Telemetry</span>
+              <span>•</span>
+              <span>Continuous Radar Stream (8s Per-Signal Sweeps)</span>
+              <span>•</span>
+              <span>Session Signals: {totalSignalsCount}</span>
             </div>
-          </>
-        )}
+          </div>
 
-        <div className="Dashboard_footerNote">
-          <span>MarketRadar v1.0 • CoinMarketCap API Telemetry</span>
-          <span>•</span>
-          <span>Continuous Radar Stream (8s Per-Signal Sweeps)</span>
-          <span>•</span>
-          <span>Session Signals: {totalSignalsCount}</span>
+          {/* V1 Asset Deep-Dive Drawer/Modal */}
+          <TokenModal
+            asset={selectedAsset}
+            onClose={() => setSelectedAsset(null)}
+          />
         </div>
-      </div>
-
-      {/* Asset Deep-Dive Drawer/Modal */}
-      <TokenModal
-        asset={selectedAsset}
-        onClose={() => setSelectedAsset(null)}
-      />
-    </div>
+      )}
+    </>
   );
 };
 

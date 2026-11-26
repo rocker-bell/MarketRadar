@@ -18,34 +18,68 @@ export interface ApiUsageStats {
   callsMade: number;
   creditsUsed: number;
   dailyQuota: number;
+  monthlyQuota: number;
   lastCallTimestamp: string | null;
   latencyMs: number;
+  medianLatencyMs: number;
+  latencyHistory: number[];
+  errorCount: number;
   status: 'CONNECTED' | 'SNAPSHOT_MODE';
   endpoint: string;
+  requestsPerMinute: number;
+  peakRequestsPerMinute: number;
 }
 
 // Global in-memory telemetry state for session
 let sessionCalls = 0;
 let sessionCredits = 0;
-let lastLatency = 120;
+let errorCount = 0;
+const latencyHistory: number[] = [120];
 let apiStatus: 'CONNECTED' | 'SNAPSHOT_MODE' = 'SNAPSHOT_MODE';
+const sessionStartTime = Date.now();
+let peakReqPerMin = 12;
 
-export function recordApiCall(isLive: boolean, latency: number = 145) {
+export function recordApiCall(isLive: boolean, latency: number = 145, isError: boolean = false) {
   sessionCalls += 1;
   sessionCredits += isLive ? 1 : 0;
-  lastLatency = latency;
+  if (isError) {
+    errorCount += 1;
+  }
+  latencyHistory.push(latency);
+  if (latencyHistory.length > 20) {
+    latencyHistory.shift();
+  }
   apiStatus = isLive ? 'CONNECTED' : 'SNAPSHOT_MODE';
+
+  const elapsedMins = Math.max(0.2, (Date.now() - sessionStartTime) / 60000);
+  const currentReqPerMin = Math.round(sessionCalls / elapsedMins);
+  if (currentReqPerMin > peakReqPerMin) {
+    peakReqPerMin = currentReqPerMin;
+  }
 }
 
 export function getApiUsageStats(): ApiUsageStats {
+  const sorted = [...latencyHistory].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  const medianLatencyMs = sorted.length % 2 !== 0 ? sorted[mid] : Math.round((sorted[mid - 1] + sorted[mid]) / 2);
+
+  const elapsedMins = Math.max(0.2, (Date.now() - sessionStartTime) / 60000);
+  const requestsPerMinute = Math.max(1, Math.round(sessionCalls / elapsedMins));
+
   return {
     callsMade: sessionCalls,
     creditsUsed: sessionCredits,
     dailyQuota: 333, // CMC Free Tier standard ~10k/month (~333/day)
+    monthlyQuota: 10000,
     lastCallTimestamp: new Date().toLocaleTimeString(),
-    latencyMs: lastLatency,
+    latencyMs: latencyHistory[latencyHistory.length - 1] || 120,
+    medianLatencyMs: medianLatencyMs || 120,
+    latencyHistory: [...latencyHistory],
+    errorCount,
     status: apiStatus,
-    endpoint: '/v1/cryptocurrency/listings/latest'
+    endpoint: '/v1/cryptocurrency/listings/latest',
+    requestsPerMinute,
+    peakRequestsPerMinute: Math.max(peakReqPerMin, requestsPerMinute)
   };
 }
 
