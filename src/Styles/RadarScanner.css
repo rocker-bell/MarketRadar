@@ -1,0 +1,332 @@
+/* Radar Scanner Table Styling */
+.RadarScanner_wrapper {
+  width: 100%;
+  background-color: #0b0f19;
+  /* Pores texture distribution */
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.RadarScanner_toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.RadarScanner_titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.RadarScanner_title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.RadarScanner_countBadge {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.RadarScanner_controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.RadarScanner_searchBox {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.RadarScanner_searchInput {
+  background: #141b2d;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 6px 12px 6px 32px;
+  color: #f8fafc;
+  font-size: 0.82rem;
+  outline: none;
+  width: 180px;
+  transition: all 0.2s ease;
+}
+
+.RadarScanner_searchInput:focus {
+  border-color: #3b82f6;
+  width: 220px;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+}
+
+.RadarScanner_searchIcon {
+  position: absolute;
+  left: 9px;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.RadarScanner_filterSelect {
+  background: #141b2d;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 6px 10px;
+  color: #94a3b8;
+  font-size: 0.82rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.RadarScanner_mobileHint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(30, 58, 138, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 0.74rem;
+  color: #93c5fd;
+  margin-bottom: 12px;
+}
+
+.RadarScanner_tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.RadarScanner_table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.82rem;
+}
+
+.RadarScanner_th {
+  background: rgba(15, 23, 42, 0.85);
+  padding: 10px 14px;
+  color: #94a3b8;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.RadarScanner_th:hover {
+  color: #f1f5f9;
+}
+
+.RadarScanner_tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+}
+
+.RadarScanner_tr:hover {
+  background-color: rgba(59, 130, 246, 0.08);
+}
+
+.RadarScanner_td {
+  padding: 12px 14px;
+  color: #e2e8f0;
+  white-space: nowrap;
+}
+
+.RadarScanner_assetCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.RadarScanner_rank {
+  font-size: 0.72rem;
+  color: #64748b;
+  min-width: 20px;
+}
+
+.RadarScanner_symbolName {
+  display: flex;
+  flex-direction: column;
+}
+
+.RadarScanner_symbol {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.RadarScanner_name {
+  font-size: 0.72rem;
+  color: #64748b;
+}
+
+.RadarScanner_positive {
+  color: #34d399;
+  font-weight: 600;
+}
+
+.RadarScanner_negative {
+  color: #f87171;
+  font-weight: 600;
+}
+
+.RadarScanner_scoreContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.RadarScanner_scoreBarBg {
+  width: 50px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.RadarScanner_scoreBarFill {
+  height: 100%;
+  border-radius: 4px;
+}
+
+.RadarScanner_typeBadge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: inline-block;
+}
+
+.RadarScanner_badgeAccumulation {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.RadarScanner_badgeBreakout {
+  background: rgba(59, 130, 246, 0.18);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.35);
+}
+
+.RadarScanner_badgeLiquidity {
+  background: rgba(168, 85, 247, 0.18);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.35);
+}
+
+.RadarScanner_badgeDivergence {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.RadarScanner_badgeStable {
+  background: rgba(148, 163, 184, 0.1);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+/* "View more" button */
+.RadarScanner_viewMoreBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #60a5fa;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 5px 9px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.RadarScanner_viewMoreBtn:hover {
+  background: rgba(59, 130, 246, 0.3);
+  color: #ffffff;
+  border-color: #60a5fa;
+  transform: translateY(-1px);
+}
+
+.RadarScanner_actionCol {
+  text-align: right;
+  width: 95px;
+}
+
+/* Responsive Rules for Screen <= 768px */
+@media (max-width: 768px) {
+  .RadarScanner_wrapper {
+    padding: 10px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .RadarScanner_toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .RadarScanner_titleGroup {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .RadarScanner_controls {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .RadarScanner_searchBox {
+    width: 100%;
+  }
+  .RadarScanner_searchInput {
+    width: 100% !important;
+  }
+  .RadarScanner_filterSelect {
+    width: 100%;
+  }
+  .RadarScanner_colMobileHide {
+    display: none !important;
+  }
+  .RadarScanner_th {
+    padding: 8px 8px;
+    font-size: 0.68rem;
+  }
+  .RadarScanner_td {
+    padding: 8px 8px;
+    font-size: 0.76rem;
+  }
+  .RadarScanner_scoreBarBg {
+    width: 32px;
+  }
+  .RadarScanner_viewMoreBtn {
+    padding: 3px 6px;
+    font-size: 0.65rem;
+  }
+  .RadarScanner_actionCol {
+    width: auto;
+  }
+}

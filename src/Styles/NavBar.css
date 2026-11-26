@@ -1,0 +1,159 @@
+/* Navigation Bar Styling */
+.NavBar_container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px;
+  background-color: #0b0e17;
+  /* Pores texture distribution */
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.NavBar_leftSection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.NavBar_logoBadge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.NavBar_logoIcon {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+}
+
+.NavBar_titleGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.NavBar_title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #f8fafc;
+  letter-spacing: -0.02em;
+}
+
+.NavBar_subtitle {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.NavBar_statusPill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  color: #34d399;
+  font-weight: 600;
+}
+
+.NavBar_livePulse {
+  width: 7px;
+  height: 7px;
+  background-color: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10b981;
+  animation: NavBar_pulseAnim 2s infinite ease-in-out;
+}
+
+@keyframes NavBar_pulseAnim {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+.NavBar_rightSection {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.NavBar_navLink {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.18s ease;
+}
+
+.NavBar_navLink:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.NavBar_actionBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #1e293b;
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 7px 14px;
+  border-radius: 7px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.NavBar_actionBtn:hover {
+  background: #273549;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .NavBar_container {
+    padding: 10px 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+  .NavBar_leftSection {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .NavBar_rightSection {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .NavBar_statusPill {
+    display: none;
+  }
+  .NavBar_navLink {
+    padding: 4px 6px;
+    font-size: 0.8rem;
+  }
+}

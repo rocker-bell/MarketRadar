@@ -1,11 +1,10 @@
-import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
-export default defineConfig({
-  devtools: {
-    // Remove this `apply` property to enable devtools for build as well
-    apply: 'serve',
-  },
-  plugins: [react()],
+export default defineConfig(({ mode }) => {
+  return {
+    plugins: [react()],
+    base: mode === 'extension' ? './' : '/MarketRadar/',
+    envPrefix: ['VITE_', 'CMC_']
+  }
 })
