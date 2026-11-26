@@ -1,0 +1,121 @@
+/* Anomaly Feed Styling */
+.AnomalyFeed_panel {
+  width: 100%;
+  background-color: #0b0f19;
+  /* Pores texture distribution */
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+}
+
+.AnomalyFeed_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.AnomalyFeed_headingGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.AnomalyFeed_title {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.AnomalyFeed_liveDot {
+  width: 7px;
+  height: 7px;
+  background-color: #38bdf8;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #38bdf8;
+}
+
+.AnomalyFeed_list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.AnomalyFeed_item {
+  background: rgba(17, 24, 39, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.AnomalyFeed_item:hover {
+  border-color: rgba(59, 130, 246, 0.35);
+  transform: translateX(2px);
+}
+
+.AnomalyFeed_itemTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.AnomalyFeed_itemSymbol {
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 0.88rem;
+}
+
+.AnomalyFeed_itemScore {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.AnomalyFeed_scoreHigh {
+  background: rgba(239, 68, 68, 0.18);
+  color: #f87171;
+}
+
+.AnomalyFeed_scoreMed {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fbbf24;
+}
+
+.AnomalyFeed_itemDesc {
+  font-size: 0.76rem;
+  color: #94a3b8;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.AnomalyFeed_itemFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: #64748b;
+}
+
+.AnomalyFeed_badge {
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #cbd5e1;
+}
+
+/* Responsive */
+@media (max-width: 990px) {
+  .AnomalyFeed_panel {
+    margin-top: 14px;
+  }
+}

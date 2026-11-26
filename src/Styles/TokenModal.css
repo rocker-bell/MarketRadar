@@ -1,0 +1,158 @@
+/* Token Detail Modal */
+.TokenModal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(3, 7, 18, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.TokenModal_modal {
+  width: 100%;
+  max-width: 520px;
+  background-color: #0b101d;
+  /* Pores texture distribution */
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  color: #e2e8f0;
+  position: relative;
+  animation: TokenModal_fadeUp 0.18s ease-out;
+}
+
+@keyframes TokenModal_fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.TokenModal_header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 14px;
+}
+
+.TokenModal_titleGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.TokenModal_symbol {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.TokenModal_name {
+  font-size: 0.84rem;
+  color: #94a3b8;
+}
+
+.TokenModal_closeBtn {
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  color: #94a3b8;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.TokenModal_closeBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.TokenModal_anomalyBanner {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+.TokenModal_anomalyTitle {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #60a5fa;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.TokenModal_anomalyDesc {
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
+
+.TokenModal_statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.TokenModal_statBox {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 7px;
+  padding: 10px 12px;
+}
+
+.TokenModal_statLabel {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.TokenModal_statVal {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.TokenModal_actionFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.TokenModal_cmcLink {
+  background: #2563eb;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+
+.TokenModal_cmcLink:hover {
+  background: #1d4ed8;
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  .TokenModal_statsGrid {
+    grid-template-columns: 1fr;
+  }
+}
