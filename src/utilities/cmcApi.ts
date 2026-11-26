@@ -1,5 +1,6 @@
 import type { CryptoAsset, MarketMetrics } from './anomalyDetector';
 import { computeAnomaly } from './anomalyDetector';
+import { recordApiCall } from './signalStreamer';
 
 // Safe retrieval of API key from environment variables via Vite
 export function getCmcApiKey(): string {
@@ -199,6 +200,7 @@ export async function fetchMarketData(): Promise<{
 
   // Attempt live CoinMarketCap API call if key is present
   if (apiKey) {
+    const startTime = performance.now();
     try {
       // Direct browser requests to pro-api are usually CORS protected;
       // We attempt request with sandbox timeout, and smoothly fallback if CORS or rate limits occur
@@ -259,6 +261,7 @@ export async function fetchMarketData(): Promise<{
 
           cachedAssets = parsed;
           lastFetchTime = now;
+          recordApiCall(true, Math.round(performance.now() - startTime));
           return {
             assets: parsed,
             metrics: deriveMetrics(parsed),
@@ -294,6 +297,7 @@ export async function fetchMarketData(): Promise<{
 
   cachedAssets = processedMock;
   lastFetchTime = now;
+  recordApiCall(false, 18);
 
   return {
     assets: processedMock,

@@ -1,60 +1,115 @@
-import React from 'react';
-import { Radio } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Radio, RefreshCw } from 'lucide-react';
 import type { CryptoAsset } from '../utilities/anomalyDetector';
+import type { LiveSignalEvent } from '../utilities/signalStreamer';
 import { formatCurrency, formatPercent } from '../utilities/formatters';
 import '../Styles/AnomalyFeed.css';
 
 interface AnomalyFeedProps {
   assets: CryptoAsset[];
+  signals: LiveSignalEvent[];
+  totalSignalsCount: number;
   onSelectAsset: (asset: CryptoAsset) => void;
 }
 
-const AnomalyFeed: React.FC<AnomalyFeedProps> = ({ assets, onSelectAsset }) => {
-  // Filter top anomalies with score >= 50, sorted descending
-  const topAnomalies = assets
-    .filter((a) => a.anomalyScore >= 45)
-    .sort((a, b) => b.anomalyScore - a.anomalyScore)
-    .slice(0, 6);
+const AnomalyFeed: React.FC<AnomalyFeedProps> = ({
+  assets,
+  signals,
+  totalSignalsCount,
+  onSelectAsset
+}) => {
+  const [, setTick] = useState(0);
+
+  // Re-render every 5 seconds to update relative time ("12s ago", "Just now")
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTick((prev) => prev + 1);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const getRelativeTime = (timestamp: Date): string => {
+    const elapsedSeconds = Math.floor((Date.now() - timestamp.getTime()) / 1000);
+    if (elapsedSeconds < 8) return 'Just now';
+    if (elapsedSeconds < 60) return `${elapsedSeconds}s ago`;
+    const mins = Math.floor(elapsedSeconds / 60);
+    return `${mins}m ago`;
+  };
+
+  const handleItemClick = (sig: LiveSignalEvent) => {
+    const matchedAsset = assets.find((a) => a.id === sig.assetId);
+    if (matchedAsset) {
+      onSelectAsset(matchedAsset);
+    }
+  };
 
   return (
     <div className="AnomalyFeed_panel">
       <div className="AnomalyFeed_header">
         <div className="AnomalyFeed_headingGroup">
           <span className="AnomalyFeed_liveDot"></span>
-          <span className="AnomalyFeed_title">Telemetry Signals</span>
+          <span className="AnomalyFeed_title">Live Telemetry Signals</span>
         </div>
-        <Radio size={14} style={{ color: '#38bdf8' }} />
+        <div className="AnomalyFeed_totalCountPill">
+          <Radio size={12} />
+          <span>{totalSignalsCount} Captured</span>
+        </div>
+      </div>
+
+      <div className="AnomalyFeed_subBar">
+        <div className="AnomalyFeed_radarSweep">
+          <RefreshCw size={11} className="animate-spin" />
+          <span>Continuous Radar Stream</span>
+        </div>
+        <span>Live Polling: Active</span>
       </div>
 
       <div className="AnomalyFeed_list">
-        {topAnomalies.map((asset) => {
-          const isHigh = asset.anomalyScore >= 75;
+        {signals.map((sig, index) => {
+          const isHigh = sig.score >= 75;
+          const isLatest = index === 0;
+
           return (
             <div
-              key={asset.id}
-              className="AnomalyFeed_item"
-              onClick={() => onSelectAsset(asset)}
+              key={sig.id}
+              className={`AnomalyFeed_item ${isLatest ? 'AnomalyFeed_newItemAnim' : ''}`}
+              onClick={() => handleItemClick(sig)}
             >
               <div className="AnomalyFeed_itemTop">
                 <span className="AnomalyFeed_itemSymbol">
-                  {asset.symbol} <span style={{ color: '#64748b', fontSize: '0.74rem' }}>{formatCurrency(asset.price)}</span>
+                  {sig.symbol}{' '}
+                  <span style={{ color: '#64748b', fontSize: '0.74rem' }}>
+                    {formatCurrency(sig.price)}
+                  </span>
                 </span>
                 <span
                   className={`AnomalyFeed_itemScore ${
                     isHigh ? 'AnomalyFeed_scoreHigh' : 'AnomalyFeed_scoreMed'
                   }`}
                 >
-                  Score {asset.anomalyScore}
+                  Score {sig.score}
                 </span>
               </div>
 
-              <div className="AnomalyFeed_itemDesc">{asset.anomalyDescription}</div>
+              <div className="AnomalyFeed_itemDesc">{sig.description}</div>
 
               <div className="AnomalyFeed_itemFooter">
-                <span className="AnomalyFeed_badge">{asset.category}</span>
-                <span style={{ color: asset.percentChange24h >= 0 ? '#34d399' : '#f87171' }}>
-                  24h: {formatPercent(asset.percentChange24h)}
+                <span className="AnomalyFeed_badge">
+                  {sig.anomalyType.replace('_', ' ')}
                 </span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span
+                    style={{
+                      color: sig.percentChange24h >= 0 ? '#34d399' : '#f87171',
+                      fontWeight: 600
+                    }}
+                  >
+                    24h: {formatPercent(sig.percentChange24h)}
+                  </span>
+                  <span className="AnomalyFeed_timePill">
+                    {getRelativeTime(sig.timestamp)}
+                  </span>
+                </div>
               </div>
             </div>
           );
