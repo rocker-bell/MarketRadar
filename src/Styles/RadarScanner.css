@@ -16,7 +16,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   flex-wrap: wrap;
 }
 
@@ -91,6 +91,19 @@
   cursor: pointer;
 }
 
+.RadarScanner_mobileHint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(30, 58, 138, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 0.74rem;
+  color: #93c5fd;
+  margin-bottom: 12px;
+}
+
 .RadarScanner_tableContainer {
   width: 100%;
   overflow-x: auto;
@@ -106,7 +119,7 @@
 }
 
 .RadarScanner_th {
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(15, 23, 42, 0.85);
   padding: 10px 14px;
   color: #94a3b8;
   font-weight: 600;
@@ -130,7 +143,7 @@
 }
 
 .RadarScanner_tr:hover {
-  background-color: rgba(59, 130, 246, 0.06);
+  background-color: rgba(59, 130, 246, 0.08);
 }
 
 .RadarScanner_td {
@@ -174,10 +187,6 @@
 .RadarScanner_negative {
   color: #f87171;
   font-weight: 600;
-}
-
-.RadarScanner_neutral {
-  color: #94a3b8;
 }
 
 .RadarScanner_scoreContainer {
@@ -239,23 +248,85 @@
   border: 1px solid rgba(148, 163, 184, 0.2);
 }
 
-/* Responsive */
+/* "View more" button */
+.RadarScanner_viewMoreBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #60a5fa;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 5px 9px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.RadarScanner_viewMoreBtn:hover {
+  background: rgba(59, 130, 246, 0.3);
+  color: #ffffff;
+  border-color: #60a5fa;
+  transform: translateY(-1px);
+}
+
+.RadarScanner_actionCol {
+  text-align: right;
+  width: 95px;
+}
+
+/* Responsive Rules for Screen <= 768px */
 @media (max-width: 768px) {
   .RadarScanner_wrapper {
-    padding: 12px;
+    padding: 10px;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   .RadarScanner_toolbar {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 8px;
   }
-  .RadarScanner_controls {
+  .RadarScanner_titleGroup {
     width: 100%;
     justify-content: space-between;
   }
-  .RadarScanner_searchInput {
+  .RadarScanner_controls {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .RadarScanner_searchBox {
     width: 100%;
   }
-  .RadarScanner_searchInput:focus {
+  .RadarScanner_searchInput {
+    width: 100% !important;
+  }
+  .RadarScanner_filterSelect {
     width: 100%;
+  }
+  .RadarScanner_colMobileHide {
+    display: none !important;
+  }
+  .RadarScanner_th {
+    padding: 8px 8px;
+    font-size: 0.68rem;
+  }
+  .RadarScanner_td {
+    padding: 8px 8px;
+    font-size: 0.76rem;
+  }
+  .RadarScanner_scoreBarBg {
+    width: 32px;
+  }
+  .RadarScanner_viewMoreBtn {
+    padding: 3px 6px;
+    font-size: 0.65rem;
+  }
+  .RadarScanner_actionCol {
+    width: auto;
   }
 }

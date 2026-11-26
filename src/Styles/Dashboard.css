@@ -1,10 +1,15 @@
 /* Main Dashboard Layout Styling */
 .Dashboard_container {
   width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
   flex: 1;
   display: flex;
   flex-direction: column;
+  padding: 12px;
   background-color: #07090e;
+  overflow-x: hidden;
+  box-sizing: border-box;
   /* Authentic pores distribution texture based on the reference matrix */
   background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px);
   background-size: 22px 22px;
@@ -15,6 +20,8 @@
 
 .Dashboard_contentWrapper {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -22,20 +29,26 @@
 
 .Dashboard_mainGrid {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: minmax(0, 1fr) 340px;
   gap: 14px;
   align-items: start;
 }
 
 .Dashboard_scannerSection {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   display: flex;
   flex-direction: column;
 }
 
 .Dashboard_feedSection {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   display: flex;
   flex-direction: column;
 }
@@ -83,6 +96,6 @@
 /* Responsive */
 @media (max-width: 1100px) {
   .Dashboard_mainGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }

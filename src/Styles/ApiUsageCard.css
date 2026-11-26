@@ -1,6 +1,9 @@
 /* API Usage Card Styling */
 .ApiUsage_card {
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
   background-color: #0b0f19;
   /* Pores texture distribution */
   background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px);

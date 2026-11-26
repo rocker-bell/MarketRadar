@@ -6,20 +6,22 @@
 
 body, html {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  background-color: #07090e;
+  overflow-x: hidden;
   border: 1px dashed red;
   /* padding: 5px 5px; */
 }
 
 #root {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  overflow-x: hidden;
   /* padding: 10px 10px; */
   
   display: flex;
-  flex-wrap: wrap;
   justify-content: flex-start;
-  align-items: start;
+  align-items: stretch;
   flex-direction: column;
   border: 1px dashed black;
 }

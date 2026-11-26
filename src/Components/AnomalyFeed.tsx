@@ -109,6 +109,9 @@ const AnomalyFeed: React.FC<AnomalyFeedProps> = ({
                   <span className="AnomalyFeed_timePill">
                     {getRelativeTime(sig.timestamp)}
                   </span>
+                  <span className="AnomalyFeed_viewMorePill">
+                    View more &rarr;
+                  </span>
                 </div>
               </div>
             </div>
